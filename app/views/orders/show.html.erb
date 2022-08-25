@@ -6,8 +6,80 @@
 
   <div class="order-summary jumbotron">
     <h4>Thank you for your order!</h4>
+    <p>The details of your order are below. A receipt will be sent to <%= @order.email %>.</p>
   </div>
+ 
+  <!-- I've basically stolen the approach taken by the cart.  '-->
+
+    <div class="panel panel-default items">
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th colspan="2">Product</th>
+            <th>Unit Price</th>
+            <th>Quantity</th>
+            <th>Price</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% order_total = 0 %>
+          <% @order.line_items.each do |item| %>
+           
+            
+            <tr>
+              <td>
+                <%= image_tag item.product.image.tiny.url %>
+              </td>
+            <td>
+              <h4> <%= item.product.name %> </h4>
+              <br>
+              <p><%= item.product.description %> </p>
+            </td>
+            <td>
+              <%= humanized_money_with_symbol item.product.price %>
+            </td>
+            <td>
+              <%= item.quantity %>
+            </td>
+            <td>
+              <%= humanized_money_with_symbol item.product.price * item.quantity %>
+            </td>
+              <% order_total += item.product.price * item.quantity %>
+          </tr>
+
+
+          <% end %>
+        </tbody>
+        <tfoot>
+          <tr>
+            <th colspan="4">
+              TOTAL:
+            </th>
+            <th>
+              <%= humanized_money_with_symbol order_total  %>
+            </th>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+
+
+
+
+
+
 
   <%= link_to "Continue Shopping", root_path, class: 'btn btn-lg btn-primary' %>
 
 </section>
+
+<!-- 
+# The line items in the order and:
+#   Their image, name and description
+#   Their respective quantities and line item totals
+# The final amount for the order
+# The email that was used
+
+<LineItem id: 3, order_id: 3, product_id: 2, quantity: 1, item_price_cents: 2499, total_price_cents: 2499, created_at: "2022-08-25 07:37:03.958871000 +0000", updated_at: "2022-08-25 07:37:03.958871000 +0000">
+
+-->
