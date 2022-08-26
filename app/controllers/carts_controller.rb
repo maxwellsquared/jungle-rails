@@ -1,5 +1,7 @@
 class CartsController < ApplicationController
 
+  # you could secure this with before_filter :authorize
+
   def show
   end
 
