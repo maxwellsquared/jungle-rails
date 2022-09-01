@@ -12,9 +12,8 @@ describe('example to-do app', () => {
   it('can see the logo', () => {
     cy.get('.navbar-brand').should('have.text', 'Jungle');
   });
-
-  it("There are products on the page", () => {
-    cy.get(".products article").should("be.visible");
+  it("There are exactly two products on the page", () => {
+    cy.get(".products article").should("have.length", 2);
   });
 
   // it('displays two todo items by default', () => {
