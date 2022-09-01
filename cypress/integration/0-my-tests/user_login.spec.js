@@ -11,7 +11,7 @@ describe('example to-do app', () => {
 
 
 
-  xit("Can create a user", () => {
+  it("Can create a user", () => {
     cy.get("a").contains("Signup").click();
     cy.get("#user_name").type('Bob Loblaw');
     cy.get('#user_email').type('bob@loblaw.com');
